@@ -14,6 +14,8 @@
 		ACC61FB928286447008D602E /* StarWarsAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FB828286447008D602E /* StarWarsAsyncTests.swift */; };
 		ACC61FC328286447008D602E /* StarWarsAsyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FC228286447008D602E /* StarWarsAsyncUITests.swift */; };
 		ACC61FC528286447008D602E /* StarWarsAsyncUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FC428286447008D602E /* StarWarsAsyncUITestsLaunchTests.swift */; };
+		ACC61FD228286BDA008D602E /* DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FD128286BDA008D602E /* DTOs.swift */; };
+		ACC61FD628286C6B008D602E /* StarWarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FD528286C6B008D602E /* StarWarsAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		ACC61FBE28286447008D602E /* StarWarsAsyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StarWarsAsyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC61FC228286447008D602E /* StarWarsAsyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAsyncUITests.swift; sourceTree = "<group>"; };
 		ACC61FC428286447008D602E /* StarWarsAsyncUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAsyncUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ACC61FD128286BDA008D602E /* DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOs.swift; sourceTree = "<group>"; };
+		ACC61FD528286C6B008D602E /* StarWarsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 				ACC61FA928286444008D602E /* ContentView.swift */,
 				ACC61FAB28286446008D602E /* Assets.xcassets */,
 				ACC61FAD28286446008D602E /* Preview Content */,
+				ACC61FD128286BDA008D602E /* DTOs.swift */,
+				ACC61FD528286C6B008D602E /* StarWarsAPI.swift */,
 			);
 			path = StarWarsAsync;
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACC61FD228286BDA008D602E /* DTOs.swift in Sources */,
+				ACC61FD628286C6B008D602E /* StarWarsAPI.swift in Sources */,
 				ACC61FAA28286444008D602E /* ContentView.swift in Sources */,
 				ACC61FA828286444008D602E /* StarWarsAsyncApp.swift in Sources */,
 			);
