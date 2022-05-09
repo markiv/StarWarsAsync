@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var results: PeopleResults?
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        List(results?.results ?? [], id: \.url) { people in
+            Text(people.name)
+        }
+        .task {
+            do {
+                results = try await StarWarsAPI.people()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
@@ -19,3 +29,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
