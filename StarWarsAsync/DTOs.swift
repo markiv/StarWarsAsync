@@ -17,7 +17,7 @@ struct People: Decodable {
     let url: URL
 }
 
-struct PeopleResults: Decodable {
+struct PeoplePage: Decodable {
     let count: Int
     let next: URL?
     let previous: URL?

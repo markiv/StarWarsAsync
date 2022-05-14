@@ -8,21 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var results: PeopleResults?
+    @StateObject var viewModel = PeopleViewModel()
 
     var body: some View {
-        List(results?.results ?? [], id: \.url) { people in
+        List(viewModel.people, id: \.url) { people in
             Text(people.name)
-            ForEach(people.films, id: \.self) {
-                FilmPlaceholder(url: $0)
-            }
+//            ForEach(people.films, id: \.self) {
+//                FilmPlaceholder(url: $0)
+//            }
         }
         .task {
             do {
-                results = try await StarWarsAPI.people()
+                try await viewModel.fetchAll()
             } catch {
                 print(error)
             }
+        }
+    }
+}
+
+@MainActor class PeopleViewModel: ObservableObject {
+    @Published var people = [People]()
+
+    func fetchAll() async throws {
+        people = []
+        var url: URL?
+        while true {
+            let page = try await StarWarsAPI.peoplePage(from: url)
+            people.append(contentsOf: page.results)
+            guard let next = page.next, people.count < page.count else { break }
+            url = next
         }
     }
 }
@@ -34,9 +49,12 @@ struct FilmPlaceholder: View {
 
     var body: some View {
         if let film = film {
-            Text(film.title)
-            Text(film.director)
-            Text(film.producer)
+            VStack(alignment: .leading) {
+                Text(film.title)
+                Text(film.director)
+                Text(film.producer)
+            }
+            .padding(.leading)
         } else if let error = error {
             Text(error.localizedDescription)
         } else {

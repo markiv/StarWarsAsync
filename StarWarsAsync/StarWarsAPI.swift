@@ -7,11 +7,18 @@
 
 import Foundation
 
+func modified<T>(_ t: T, modifier: (inout T) -> Void) -> T {
+    var t = t
+    modifier(&t)
+    return t
+}
+
 enum StarWarsAPI {
     static let baseURL = URL(string: "https://swapi.dev/api/")!
 
-    static func people() async throws -> PeopleResults {
-        try await baseURL.appendingPathComponent("people").request().get()
+    static func peoplePage(from url: URL? = nil) async throws -> PeoplePage {
+        let url = url ?? baseURL.appendingPathComponent("people")
+        return try await url.request().get()
     }
 
     static func people(id: Int) async throws -> People {
@@ -25,9 +32,9 @@ enum StarWarsAPI {
 
 extension URL {
     func request() -> URLRequest {
-        var this = URLRequest(url: self)
-        this.cachePolicy = .returnCacheDataElseLoad
-        return this
+        modified(URLRequest(url: self)) {
+            $0.cachePolicy = .returnCacheDataElseLoad
+        }
     }
 }
 
@@ -43,6 +50,7 @@ extension URLRequest {
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode, (200...299).contains(statusCode) else {
             throw URLError(.badServerResponse)
         }
+        try? await Task.sleep(nanoseconds: .random(in: 1_000_000_000...2_000_000_000))
         return try decoder.decode(T.self, from: data)
     }
 }
