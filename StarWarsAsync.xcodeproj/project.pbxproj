@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ACC4CC392830058F00DD22B4 /* PeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4CC382830058F00DD22B4 /* PeopleList.swift */; };
+		ACC4CC3B28301E9B00DD22B4 /* PeopleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4CC3A28301E9B00DD22B4 /* PeopleDetail.swift */; };
+		ACC4CC3E2830202500DD22B4 /* Fondue in Frameworks */ = {isa = PBXBuildFile; productRef = ACC4CC3D2830202500DD22B4 /* Fondue */; };
 		ACC61FA828286444008D602E /* StarWarsAsyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */; };
 		ACC61FAA28286444008D602E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FA928286444008D602E /* ContentView.swift */; };
 		ACC61FAC28286446008D602E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACC61FAB28286446008D602E /* Assets.xcassets */; };
@@ -38,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		ACC4CC382830058F00DD22B4 /* PeopleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleList.swift; sourceTree = "<group>"; };
+		ACC4CC3A28301E9B00DD22B4 /* PeopleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDetail.swift; sourceTree = "<group>"; };
 		ACC61FA428286444008D602E /* StarWarsAsync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsAsync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAsyncApp.swift; sourceTree = "<group>"; };
 		ACC61FA928286444008D602E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACC4CC3E2830202500DD22B4 /* Fondue in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +107,7 @@
 				ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */,
 				ACC61FA928286444008D602E /* ContentView.swift */,
 				ACC4CC382830058F00DD22B4 /* PeopleList.swift */,
+				ACC4CC3A28301E9B00DD22B4 /* PeopleDetail.swift */,
 				ACC61FAB28286446008D602E /* Assets.xcassets */,
 				ACC61FAD28286446008D602E /* Preview Content */,
 				ACC61FD128286BDA008D602E /* DTOs.swift */,
@@ -152,6 +157,9 @@
 			dependencies = (
 			);
 			name = StarWarsAsync;
+			packageProductDependencies = (
+				ACC4CC3D2830202500DD22B4 /* Fondue */,
+			);
 			productName = StarWarsAsync;
 			productReference = ACC61FA428286444008D602E /* StarWarsAsync.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +232,9 @@
 				Base,
 			);
 			mainGroup = ACC61F9B28286444008D602E;
+			packageReferences = (
+				ACC4CC3C2830202500DD22B4 /* XCRemoteSwiftPackageReference "Fondue" */,
+			);
 			productRefGroup = ACC61FA528286444008D602E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACC61FD228286BDA008D602E /* DTOs.swift in Sources */,
+				ACC4CC3B28301E9B00DD22B4 /* PeopleDetail.swift in Sources */,
 				ACC61FD628286C6B008D602E /* StarWarsAPI.swift in Sources */,
 				ACC61FAA28286444008D602E /* ContentView.swift in Sources */,
 				ACC61FA828286444008D602E /* StarWarsAsyncApp.swift in Sources */,
@@ -595,6 +607,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACC4CC3C2830202500DD22B4 /* XCRemoteSwiftPackageReference "Fondue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/Fondue.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACC4CC3D2830202500DD22B4 /* Fondue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACC4CC3C2830202500DD22B4 /* XCRemoteSwiftPackageReference "Fondue" */;
+			productName = Fondue;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACC61F9C28286444008D602E /* Project object */;
 }

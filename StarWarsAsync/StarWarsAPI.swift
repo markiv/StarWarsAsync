@@ -7,12 +7,6 @@
 
 import Foundation
 
-func modified<T>(_ t: T, modifier: (inout T) -> Void) -> T {
-    var t = t
-    modifier(&t)
-    return t
-}
-
 enum StarWarsAPI {
     static let baseURL = URL(string: "https://swapi.dev/api/")!
 
@@ -39,18 +33,22 @@ extension URL {
 }
 
 extension URLRequest {
-    static let snakeCaseDecoder: JSONDecoder = {
-        let this = JSONDecoder()
-        this.keyDecodingStrategy = .convertFromSnakeCase
-        return this
-    }()
+    static let snakeCaseDecoder = modified(JSONDecoder()) {
+        $0.keyDecodingStrategy = .convertFromSnakeCase
+    }
 
     func get<T: Decodable>(decoder: JSONDecoder = snakeCaseDecoder) async throws -> T {
         let (data, response) = try await URLSession.shared.data(for: self)
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode, (200...299).contains(statusCode) else {
             throw URLError(.badServerResponse)
         }
-        try? await Task.sleep(nanoseconds: .random(in: 1_000_000_000...2_000_000_000))
+        // try? await Task.sleep(nanoseconds: .random(in: 1_000_000_000...2_000_000_000))
         return try decoder.decode(T.self, from: data)
     }
+}
+
+func modified<T>(_ t: T, modifier: (inout T) -> Void) -> T {
+    var t = t
+    modifier(&t)
+    return t
 }
