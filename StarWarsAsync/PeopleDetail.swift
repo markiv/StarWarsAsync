@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PeopleDetail: View {
     let people: People
+    @State private var films: [Film]?
 
     var body: some View {
         List {
@@ -23,13 +24,21 @@ struct PeopleDetail: View {
             // item(label: "Home World", value: people.homeworld.absoluteString)
             // item(label: "Species", value: "\(people.species.count)")
             // item(label: "Vehicles", value: "\(people.vehicles.count)")
-            Section("Films") {
-                ForEach(people.films, id: \.self) { url in
-                    FilmPlaceholder(url: url)
+            if let films = films {
+                Section("Films") {
+                    ForEach(films, id: \.url) {
+                        Text($0.title)
+                    }
                 }
             }
         }
         .navigationTitle(people.name)
+        .task {
+            async let film0: Film = people.films[0].request().make()
+            async let film1: Film = people.films[1].request().make()
+            async let film2: Film = people.films[2].request().make()
+            films = try? await [film0, film1, film2]
+        }
     }
 }
 
@@ -45,31 +54,6 @@ struct DetailItem: View {
                 Spacer()
                 Text(value)
             }
-        }
-    }
-}
-
-struct FilmPlaceholder: View {
-    let url: URL
-    @State private var film: Film?
-    @State private var error: Error?
-
-    var body: some View {
-        if let film = film {
-            NavigationLink(film.title) {
-                FilmDetail(film: film)
-            }            
-        } else if let error = error {
-            Text(error.localizedDescription)
-        } else {
-            ProgressView("Loading...")
-                .task {
-                    do {
-                        film = try await url.request().make()
-                    } catch {
-                        print(error)
-                    }
-                }
         }
     }
 }
