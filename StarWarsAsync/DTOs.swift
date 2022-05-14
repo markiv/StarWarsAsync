@@ -11,10 +11,10 @@ struct People: Decodable {
     let name: String
     let height, mass, hairColor: String?
     let skinColor, eyeColor, birthYear, gender: String?
-    let homeworld: String
-    let films, species, vehicles, starships: [String]
+    let homeworld: URL
+    let films, species, vehicles, starships: [URL]
     let created, edited: String
-    let url: String
+    let url: URL
 }
 
 struct PeopleResults: Decodable {
@@ -22,4 +22,17 @@ struct PeopleResults: Decodable {
     let next: URL?
     let previous: URL?
     let results: [People]
+}
+
+struct Film: Codable {
+    let title: String
+    let created, director, edited: String
+    let episodeId: Int
+    let openingCrawl: String
+    let producer, releaseDate: String
+    let characters: [URL]
+    let planets: [URL]
+    let species, starships: [URL]
+    let vehicles: [URL]
+    let url: URL
 }

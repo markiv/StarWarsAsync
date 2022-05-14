@@ -13,6 +13,9 @@ struct ContentView: View {
     var body: some View {
         List(results?.results ?? [], id: \.url) { people in
             Text(people.name)
+            ForEach(people.films, id: \.self) {
+                FilmPlaceholder(url: $0)
+            }
         }
         .task {
             do {
@@ -24,10 +27,33 @@ struct ContentView: View {
     }
 }
 
+struct FilmPlaceholder: View {
+    let url: URL
+    @State private var film: Film?
+    @State private var error: Error?
+
+    var body: some View {
+        if let film = film {
+            Text(film.title)
+            Text(film.director)
+            Text(film.producer)
+        } else if let error = error {
+            Text(error.localizedDescription)
+        } else {
+            ProgressView("Loading...")
+                .task {
+                    do {
+                        film = try await url.get()
+                    } catch {
+                        print(error)
+                    }
+                }
+        }
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
-

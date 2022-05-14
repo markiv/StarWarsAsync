@@ -17,23 +17,24 @@ enum StarWarsAPI {
     static func people(id: Int) async throws -> People {
         try await baseURL.appendingPathComponent("people/\(id)").get()
     }
+
+    static func film(id: Int) async throws -> Film {
+        try await baseURL.appendingPathComponent("film/\(id)").get()
+    }
 }
 
-import SwiftUI
-
 extension URL {
-    func get<T: Decodable>() async throws -> T {
+    static let snakeCaseDecoder: JSONDecoder = {
+        let this = JSONDecoder()
+        this.keyDecodingStrategy = .convertFromSnakeCase
+        return this
+    }()
+
+    func get<T: Decodable>(decoder: JSONDecoder = snakeCaseDecoder) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: self)
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode, (200...299).contains(statusCode) else {
             throw URLError(.badServerResponse)
         }
-        return try JSONDecoder().decode(T.self, from: data)
-    }
-}
-
-extension Decodable {
-    static func state(from url: URL) async -> State<Self?> {
-        let value: Self? = try? await url.get()
-        return State(initialValue: value)
+        return try decoder.decode(T.self, from: data)
     }
 }
