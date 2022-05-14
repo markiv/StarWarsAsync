@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACC4CC392830058F00DD22B4 /* PeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4CC382830058F00DD22B4 /* PeopleList.swift */; };
 		ACC61FA828286444008D602E /* StarWarsAsyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */; };
 		ACC61FAA28286444008D602E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC61FA928286444008D602E /* ContentView.swift */; };
 		ACC61FAC28286446008D602E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACC61FAB28286446008D602E /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ACC4CC382830058F00DD22B4 /* PeopleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleList.swift; sourceTree = "<group>"; };
 		ACC61FA428286444008D602E /* StarWarsAsync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsAsync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAsyncApp.swift; sourceTree = "<group>"; };
 		ACC61FA928286444008D602E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				ACC61FA728286444008D602E /* StarWarsAsyncApp.swift */,
 				ACC61FA928286444008D602E /* ContentView.swift */,
+				ACC4CC382830058F00DD22B4 /* PeopleList.swift */,
 				ACC61FAB28286446008D602E /* Assets.xcassets */,
 				ACC61FAD28286446008D602E /* Preview Content */,
 				ACC61FD128286BDA008D602E /* DTOs.swift */,
@@ -267,6 +270,7 @@
 				ACC61FD628286C6B008D602E /* StarWarsAPI.swift in Sources */,
 				ACC61FAA28286444008D602E /* ContentView.swift in Sources */,
 				ACC61FA828286444008D602E /* StarWarsAsyncApp.swift in Sources */,
+				ACC4CC392830058F00DD22B4 /* PeopleList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
