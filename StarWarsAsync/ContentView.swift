@@ -43,7 +43,7 @@ struct FilmPlaceholder: View {
             ProgressView("Loading...")
                 .task {
                     do {
-                        film = try await url.get()
+                        film = try await url.request().get()
                     } catch {
                         print(error)
                     }
