@@ -24,20 +24,31 @@ struct PeopleDetail: View {
             // item(label: "Home World", value: people.homeworld.absoluteString)
             // item(label: "Species", value: "\(people.species.count)")
             // item(label: "Vehicles", value: "\(people.vehicles.count)")
-            if let films = films {
+
+            if let films = films, !films.isEmpty {
                 Section("Films") {
-                    ForEach(films, id: \.url) {
-                        Text($0.title)
+                    ForEach(films, id: \.url) { film in
+                        NavigationLink(film.title) {
+                            FilmDetail(film: film)
+                        }
                     }
                 }
             }
         }
         .navigationTitle(people.name)
         .task {
-            async let film0: Film = people.films[0].request().make()
-            async let film1: Film = people.films[1].request().make()
-            async let film2: Film = people.films[2].request().make()
-            films = try? await [film0, film1, film2]
+            films = []
+            try? await withThrowingTaskGroup(of: Film.self) { group in
+                people.films.forEach { url in
+                    group.addTask {
+                        async let film: Film = url.request().make()
+                        return try await film
+                    }
+                }
+                for try await film in group {
+                    films?.append(film)
+                }
+            }
         }
     }
 }
