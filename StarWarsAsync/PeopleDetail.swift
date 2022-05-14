@@ -13,14 +13,21 @@ struct PeopleDetail: View {
 
     var body: some View {
         List {
-            item(label: "Gender", value: people.gender)
-            item(label: "Mass", value: people.mass)
-            item(label: "Birth Year", value: people.birthYear)
-            item(label: "Birth Year", value: people.birthYear)
-            item(label: "Eye Color", value: people.eyeColor)
-            item(label: "Skin Color", value: people.skinColor)
-            item(label: "Home World", value: people.homeworld.absoluteString)
-            item(label: "Films", value: "\(people.films.count)")
+            Section {
+                item(label: "Gender", value: people.gender)
+                item(label: "Mass", value: people.mass)
+                item(label: "Birth Year", value: people.birthYear)
+                item(label: "Eye Color", value: people.eyeColor)
+                item(label: "Skin Color", value: people.skinColor)
+            }
+            // item(label: "Home World", value: people.homeworld.absoluteString)
+            // item(label: "Species", value: "\(people.species.count)")
+            // item(label: "Vehicles", value: "\(people.vehicles.count)")
+            Section("Films") {
+                ForEach(people.films, id: \.self) { url in
+                    FilmPlaceholder(url: url)
+                }
+            }
         }
         .navigationTitle(people.name)
     }
@@ -33,6 +40,29 @@ struct PeopleDetail: View {
                 Spacer()
                 Text(value)
             }
+        }
+    }
+}
+
+struct FilmPlaceholder: View {
+    let url: URL
+    @State private var film: Film?
+    @State private var error: Error?
+
+    var body: some View {
+        if let film = film {
+            Text(film.title)
+        } else if let error = error {
+            Text(error.localizedDescription)
+        } else {
+            ProgressView("Loading...")
+                .task {
+                    do {
+                        film = try await url.request().make()
+                    } catch {
+                        print(error)
+                    }
+                }
         }
     }
 }
