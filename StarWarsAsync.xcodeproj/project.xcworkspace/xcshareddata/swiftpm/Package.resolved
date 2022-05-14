@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "fondue",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/markiv/Fondue.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ffc210ba2a9c6ae6a8f78729b2a959a63c0c5261"
+      }
+    }
+  ],
+  "version" : 2
+}

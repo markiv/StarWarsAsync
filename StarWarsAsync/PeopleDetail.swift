@@ -37,18 +37,7 @@ struct PeopleDetail: View {
         }
         .navigationTitle(people.name)
         .task {
-            films = []
-            try? await withThrowingTaskGroup(of: Film.self) { group in
-                people.films.forEach { url in
-                    group.addTask {
-                        async let film: Film = url.request().make()
-                        return try await film
-                    }
-                }
-                for try await film in group {
-                    films?.append(film)
-                }
-            }
+            films = try? await people.films.getAll()
         }
     }
 }

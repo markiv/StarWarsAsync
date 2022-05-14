@@ -7,6 +7,7 @@
 
 import Fondue
 import Foundation
+import UIKit
 
 enum StarWarsAPI {
     static let baseURL: URL = "https://swapi.dev/api/"
@@ -46,5 +47,25 @@ extension URLRequest {
         }
         // try? await Task.sleep(nanoseconds: .random(in: 1_000_000_000...2_000_000_000))
         return try decoder.decode(T.self, from: data)
+    }
+}
+
+extension Collection where Element == URL {
+    /// Concurrently gets a collection of a generic Decodable type from a collection of URLs.
+    /// This version will fail if any sub-task fails.
+    func getAll<T: Decodable>() async throws -> [T] {
+        var results = [T]()
+        try await withThrowingTaskGroup(of: T.self) { group in
+            forEach { url in
+                group.addTask {
+                    async let value: T = url.request().make()
+                    return try await value
+                }
+            }
+            for try await value in group {
+                results.append(value)
+            }
+        }
+        return results
     }
 }
