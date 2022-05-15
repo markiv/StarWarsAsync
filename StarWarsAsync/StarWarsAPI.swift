@@ -68,4 +68,24 @@ extension Collection where Element == URL {
         }
         return results
     }
+
+    /// Concurrently gets a collection of a generic Decodable type from a collection of URLs.
+    /// This version will ignore any failures, returning as many elements as possible.
+    func getAllPossible<T: Decodable>() async -> [T] {
+        var results = [T]()
+        await withTaskGroup(of: T?.self) { group in
+            forEach { url in
+                group.addTask {
+                    async let value: T? = url.request().make()
+                    return try? await value
+                }
+            }
+            for await value in group {
+                if let value = value {
+                    results.append(value)
+                }
+            }
+        }
+        return results
+    }
 }

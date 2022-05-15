@@ -37,7 +37,7 @@ struct PeopleDetail: View {
         }
         .navigationTitle(people.name)
         .task {
-            films = try? await people.films.getAll()
+            films = await people.films.getAllPossible()
         }
     }
 }
