@@ -19,7 +19,9 @@ struct FilmDetail: View {
             DetailItem(label: "Characters", value: "\(film.characters.count)")
             DetailItem(label: "Species", value: "\(film.species.count)")
             DetailItem(label: "Vehicles", value: "\(film.vehicles.count)")
-            // DetailItem(label: "Opening Crawl", value: film.openingCrawl)
+            NavigationLink("Opening Crawl") {
+                OpeningCrawlView(film: film)
+            }
         }
             .navigationTitle(film.title)
     }

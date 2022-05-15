@@ -89,3 +89,13 @@ extension Collection where Element == URL {
         return results
     }
 }
+
+#if DEBUG
+extension Decodable {
+    static func mock(name: String) -> Self {
+        let url = Bundle.main.url(forResource: name, withExtension: "json")!
+        let data = try! Data(contentsOf: url)
+        return try! JSONDecoder.shared.decode(Self.self, from: data)
+    }
+}
+#endif
