@@ -30,16 +30,22 @@ struct PeopleList: View {
 
 extension PeopleList {
     class ViewModel: ObservableObject {
-        @Published var people = [People]()
+        @MainActor @Published var people = [People]()
 
-        @MainActor func fetchAllPages() async throws {
-            people = []
-            var url: URL?
+        nonisolated func fetchAllPages() async throws {
+            await MainActor.run {
+                people = []
+            }
+            var next: URL?
+            var count = 0
             while true {
-                let page = try await StarWarsAPI.peoplePage(from: url)
-                people.append(contentsOf: page.results)
-                guard let next = page.next, people.count < page.count else { break }
-                url = next
+                let page = try await StarWarsAPI.peoplePage(from: next)
+                await MainActor.run {
+                    people.append(contentsOf: page.results)
+                }
+                count += page.results.count
+                next = page.next
+                guard next != nil, count < page.count else { break }
             }
         }
     }
